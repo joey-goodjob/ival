@@ -192,7 +192,8 @@ const toArrayBuffer = (input: SupportedBuffer): ArrayBuffer => {
   }
   if (ArrayBuffer.isView(input)) {
     const { buffer, byteOffset, byteLength } = input;
-    return buffer.slice(byteOffset, byteOffset + byteLength);
+    // 确保 buffer 是 ArrayBuffer 类型，而不是 SharedArrayBuffer
+    return buffer.slice(byteOffset, byteOffset + byteLength) as ArrayBuffer;
   }
   throw new TransformError('Unsupported buffer type received.', 'PARSE_ERROR');
 };
